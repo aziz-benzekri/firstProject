@@ -1,0 +1,27 @@
+<form [formGroup]="apartForm" (ngSubmit)="onSubmit()">
+    <label>Apartment Number:</label>
+    <input type="text" formControlName="apartmentNumber">
+    <div *ngIf="apartForm.get('apartmentNumber')?.invalid && apartForm.get('apartmentNumber')?.touched">
+        Numéro d'appartement invalide (chiffres uniquement).
+    </div>
+
+    <label>Floor Number:</label>
+    <input type="text" formControlName="floorNumber">
+    <div *ngIf="apartForm.get('floorNumber')?.invalid && apartForm.get('floorNumber')?.touched">
+        Numéro d'étage invalide (chiffres uniquement).
+    </div>
+
+    <label>Residence:</label>
+    <input type="text" formControlName="residence">
+    <div *ngIf="apartForm.get('residence')?.invalid && apartForm.get('residence')?.touched">
+        Résidence obligatoire.
+    </div>
+
+    <label>Terrace:</label>
+    <input type="checkbox" formControlName="terrace">
+
+    <label>Surface Terrace:</label>
+    <input type="text" formControlName="surfaceTerrace">
+
+    <button type="submit" [disabled]="apartForm.invalid">Add</button>
+</form>

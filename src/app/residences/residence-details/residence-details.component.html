@@ -1,0 +1,9 @@
+<div>
+    <button (click)="nextResidence()">Next</button>
+
+</div>
+<div>
+    <button [routerLink]="['/residences/add']" class="btn btn-success">Add Residence</button>
+    <button [routerLink]="['/residences', numResidence, 'edit']" class="btn btn-warning">Update Residence</button>
+
+</div>

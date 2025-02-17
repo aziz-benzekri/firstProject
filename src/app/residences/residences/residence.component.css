@@ -1,0 +1,17 @@
+.cons {
+    color: orange;
+}
+
+.vendu {
+    color: red;
+}
+
+.dispo {
+    color: green;
+}
+
+.status {
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+}

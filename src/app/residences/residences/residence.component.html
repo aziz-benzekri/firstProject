@@ -1,0 +1,38 @@
+<div>
+    <label>Chercher</label>
+    <input type="text" name="address" [(ngModel)]="address" placeholder="Rechercher une adresse">
+</div>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Image</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let residence of getFilteredResidences()">
+                <td>{{ residence.name }}</td>
+                <td>{{ residence.address }}</td>
+                <td>
+                    <img [src]="residence.image" alt="{{ residence.name }}" width="100" height="80">
+                </td>
+                <td>
+                    <span *ngIf="residence.status === 'Disponible'" class="status dispo">Disponible</span>
+                    <span *ngIf="residence.status === 'Vendu'" class="status vendu">Vendu</span>
+                    <span *ngIf="residence.status === 'En Construction'" class="status cons">En Construction</span>
+                </td>
+                <td>
+                    <button (click)="showLocation(residence.address)">Show Location</button>
+                    <button (click)="addToFavorites(residence)">Favoris</button>
+                    <button [routerLink]="['/residences', residence.id]">Détails</button>
+                </td>
+                <button [routerLink]="['/residences', residence.id, 'apartments']">Appartements List</button>
+            </tr>
+        </tbody>
+    </table>
+</div>

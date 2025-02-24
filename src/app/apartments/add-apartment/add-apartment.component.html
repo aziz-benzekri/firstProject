@@ -1,27 +1,90 @@
-<form [formGroup]="apartForm" (ngSubmit)="onSubmit()">
-    <label>Apartment Number:</label>
-    <input type="text" formControlName="apartmentNumber">
-    <div *ngIf="apartForm.get('apartmentNumber')?.invalid && apartForm.get('apartmentNumber')?.touched">
-        Numéro d'appartement invalide (chiffres uniquement).
+<form [formGroup]="apartForm" (ngSubmit)="onSubmit()" class="container mt-4 p-4 border rounded bg-light">
+
+
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Apartment Number:</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" formControlName="apartmentNumber">
+            <div class="text-danger"
+                *ngIf="apartForm.get('apartmentNumber')?.invalid && apartForm.get('apartmentNumber')?.touched">
+                Numéro d'appartement invalide (chiffres uniquement).
+            </div>
+        </div>
     </div>
 
-    <label>Floor Number:</label>
-    <input type="text" formControlName="floorNumber">
-    <div *ngIf="apartForm.get('floorNumber')?.invalid && apartForm.get('floorNumber')?.touched">
-        Numéro d'étage invalide (chiffres uniquement).
+
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Floor Number:</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" formControlName="floorNumber">
+            <div class="text-danger"
+                *ngIf="apartForm.get('floorNumber')?.invalid && apartForm.get('floorNumber')?.touched">
+                Numéro d'étage invalide (chiffres uniquement).
+            </div>
+        </div>
     </div>
 
-    <label>Residence:</label>
-    <input type="text" formControlName="residence">
-    <div *ngIf="apartForm.get('residence')?.invalid && apartForm.get('residence')?.touched">
-        Résidence obligatoire.
+
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Terrace:</label>
+        <div class="col-sm-9">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" formControlName="terrace" value="true" id="terraceYes">
+                <label class="form-check-label" for="terraceYes">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" formControlName="terrace" value="false" id="terraceNo">
+                <label class="form-check-label" for="terraceNo">No</label>
+            </div>
+        </div>
     </div>
 
-    <label>Terrace:</label>
-    <input type="checkbox" formControlName="terrace">
 
-    <label>Surface Terrace:</label>
-    <input type="text" formControlName="surfaceTerrace">
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Surface Terrace:</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" formControlName="surfaceTerrace">
+        </div>
+    </div>
 
-    <button type="submit" [disabled]="apartForm.invalid">Add</button>
+
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Category:</label>
+        <div class="col-sm-9">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="category" value="s+1" id="s1">
+                <label class="form-check-label" for="s1">S+1</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="category" value="s+2" id="s2">
+                <label class="form-check-label" for="s2">S+2</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="category" value="s+3" id="s3">
+                <label class="form-check-label" for="s3">S+3</label>
+            </div>
+            <div class="text-danger" *ngIf="apartForm.get('category')?.invalid && apartForm.get('category')?.touched">
+                Catégorie obligatoire.
+            </div>
+        </div>
+    </div>
+
+
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Residence:</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" formControlName="residence">
+            <div class="text-danger" *ngIf="apartForm.get('residence')?.invalid && apartForm.get('residence')?.touched">
+                Résidence obligatoire.
+            </div>
+        </div>
+    </div>
+
+
+    <div class="mb-3 row">
+        <div class="col-sm-9 offset-sm-3">
+            <button type="submit" class="btn btn-primary" [disabled]="apartForm.invalid">Add</button>
+        </div>
+    </div>
+
 </form>

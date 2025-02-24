@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Apartment } from '../../core/models/Apartment.model';
@@ -9,7 +8,7 @@ import { Apartment } from '../../core/models/Apartment.model';
   templateUrl: './add-apartment.component.html',
   styleUrls: ['./add-apartment.component.css']
 })
-export class AddApartmentComponent {
+export class AddApartmentComponent implements OnInit {
   apartForm: FormGroup;
   newApart!: Apartment;
 
@@ -18,17 +17,20 @@ export class AddApartmentComponent {
       apartmentNumber: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       floorNumber: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       residence: ['', Validators.required],
-      terrace: [false],
-      surfaceTerrace: [{ value: '', disabled: true }]
+      terrace: ['false', Validators.required],  // Initialisé à "false" par défaut
+      surfaceTerrace: [{ value: '', disabled: true }],
+      category: new FormControl('s+1', Validators.required)
     });
   }
 
   ngOnInit(): void {
+
     this.apartForm.get('terrace')?.valueChanges.subscribe(value => {
-      if (value) {
+      if (value === 'true') {
         this.apartForm.get('surfaceTerrace')?.enable();
       } else {
         this.apartForm.get('surfaceTerrace')?.disable();
+        this.apartForm.get('surfaceTerrace')?.setValue('');
       }
     });
   }

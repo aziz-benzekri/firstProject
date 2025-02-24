@@ -1,60 +1,66 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-residence',
   templateUrl: './add-residence.component.html',
   styleUrls: ['./add-residence.component.css']
 })
-export class AddResidenceComponent {
+export class AddResidenceComponent implements OnInit {
+  residenceForm: FormGroup;
 
-  residenceForm!: FormGroup;
-
-
-  residenceId: number | null = null;
-
-
-  ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      const id = params.get('id');
-      this.residenceId = id ? +id : null;
-    });
-  }
-
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder) {
     this.residenceForm = this.fb.group({
-      id: [Math.random().toString(36).substr(2, 9)], // ID généré aléatoirement
+      id: [''],  // Champ caché
       name: ['', [Validators.required, Validators.minLength(3)]],
       address: ['', Validators.required],
-      image: ['', [Validators.required, Validators.pattern(/^(https?:\/\/.*\.(?:png|jpg|jpeg|gif))$/)]],
-      status: ['Disponible'],
-      apartments: this.fb.array([])
+      image: ['', [Validators.required, Validators.pattern('https?://.+')]], // Validation d'URL
+      status: ['Disponible', Validators.required],
+      apartments: this.fb.array([])  // FormArray pour gérer les appartements
     });
   }
 
+  ngOnInit(): void { }
+
+  // Accéder à la liste des appartements
   get apartments() {
     return this.residenceForm.get('apartments') as FormArray;
   }
 
-
-
+  // Ajouter un appartement au formulaire
   addApartment() {
-    this.apartments.push(this.fb.group({
-      apartmentNumber: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
-      floorNumber: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+    const apartmentForm = this.fb.group({
+      apartNum: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      floorNum: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      surface: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       terrace: [false],
-      surfaceTerrace: [{ value: '', disabled: true }]
-    }));
+      surfaceterrace: [{ value: '', disabled: true }, [Validators.pattern('^[0-9]*$')]],
+      category: ['s+1', Validators.required],
+      ResidenceId: ['', Validators.required] // Assigner l'ID de la résidence
+    });
+
+    // Activer/désactiver le champ surfaceterrace en fonction de la valeur de terrace
+    apartmentForm.get('terrace')?.valueChanges.subscribe(value => {
+      const surfaceTerraceControl = apartmentForm.get('surfaceterrace');
+      if (value) {
+        surfaceTerraceControl?.enable();
+      } else {
+        surfaceTerraceControl?.disable();
+      }
+    });
+
+    this.apartments.push(apartmentForm);
   }
 
+  // Supprimer un appartement de la liste
   removeApartment(index: number) {
     this.apartments.removeAt(index);
   }
 
+  // Soumettre le formulaire
   onSubmit() {
     if (this.residenceForm.valid) {
-      console.log('Nouvelle résidence:', this.residenceForm.value);
+      console.log('Résidence:', this.residenceForm.value);
     }
   }
 }

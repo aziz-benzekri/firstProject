@@ -1,0 +1,54 @@
+{
+    "residences": [
+        {
+            "id": 1,
+            "name": "El Fel",
+            "address": "Borj Cedria",
+            "image": "assets/images/R1.jpeg",
+            "status": "Disponible"
+        },
+        {
+            "id": 2,
+            "name": "El Yasmine",
+            "address": "Ezzahra",
+            "image": "assets/images/R2.jpg",
+            "status": "Disponible"
+        },
+        {
+            "id": 3,
+            "name": "El Arij",
+            "address": "Rades",
+            "image": "assets/images/R3.jpg",
+            "status": "Vendu"
+        },
+        {
+            "id": 4,
+            "name": "El Anber",
+            "address": "inconnu",
+            "image": "assets/images/R4.jpg",
+            "status": "En Construction"
+        }
+    ],
+    "apartments": [
+        {
+            "id": 1,
+            "apartmentNumber": "A101",
+            "floorNumber": 1,
+            "surface": 80,
+            "terrace": true,
+            "surfaceTerrace": 20,
+            "category": "T2",
+            "residenceId": 1
+        },
+        {
+            "id": 2,
+            "apartmentNumber": "B201",
+            "floorNumber": 2,
+            "surface": 120,
+            "terrace": false,
+            "surfaceTerrace": 0,
+            "category": "T3",
+            "residenceId": 2
+        }
+    ]
+}

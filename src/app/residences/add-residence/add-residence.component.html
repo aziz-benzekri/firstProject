@@ -1,46 +1,129 @@
-<form [formGroup]="residenceForm" (ngSubmit)="onSubmit()">
-    <label>Name:</label>
-    <input type="text" formControlName="name">
-    <div *ngIf="residenceForm.get('name')?.invalid && residenceForm.get('name')?.touched">
-        Nom obligatoire, min 3 caractères.
-    </div>
+<form [formGroup]="residenceForm" (ngSubmit)="onSubmit()" class="container mt-4 p-4 border rounded bg-light">
+    <h2 class="text-center mb-4">Ajouter une Résidence</h2>
 
-    <label>Address:</label>
-    <input type="text" formControlName="address">
-    <div *ngIf="residenceForm.get('address')?.invalid && residenceForm.get('address')?.touched">
-        Adresse obligatoire.
-    </div>
+    <!-- ID (Champ caché) -->
+    <input type="hidden" formControlName="id">
 
-    <label>Image URL:</label>
-    <input type="text" formControlName="image">
-    <div *ngIf="residenceForm.get('image')?.invalid && residenceForm.get('image')?.touched">
-        URL invalide.
-    </div>
-
-    <label>Status:</label>
-    <select formControlName="status">
-        <option value="Disponible">Disponible</option>
-        <option value="En Construction">En Construction</option>
-        <option value="Vendu">Vendu</option>
-    </select>
-
-    <h3>Appartements</h3>
-    <div formArrayName="apartments">
-        <div *ngFor="let apt of apartments.controls; let i = index" [formGroupName]="i">
-            <label>Apartment Number:</label>
-            <input type="text" formControlName="apartmentNumber">
-
-            <label>Floor Number:</label>
-            <input type="text" formControlName="floorNumber">
-
-            <label>Terrace:</label>
-            <input type="checkbox" formControlName="terrace">
-
-            <button (click)="removeApartment(i)">Remove</button>
+    <!-- Name -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Nom:</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" formControlName="name">
+            <div *ngIf="residenceForm.get('name')?.invalid && residenceForm.get('name')?.touched" class="text-danger">
+                Nom obligatoire, minimum 3 caractères.
+            </div>
         </div>
     </div>
 
-    <button (click)="addApartment()">Add Apartment</button>
+    <!-- Address -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Adresse:</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" formControlName="address">
+            <div *ngIf="residenceForm.get('address')?.invalid && residenceForm.get('address')?.touched"
+                class="text-danger">
+                Adresse obligatoire.
+            </div>
+        </div>
+    </div>
 
-    <button type="submit" [disabled]="residenceForm.invalid">Add Residence</button>
+    <!-- Image URL -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Image URL:</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" formControlName="image">
+            <div *ngIf="residenceForm.get('image')?.invalid && residenceForm.get('image')?.touched" class="text-danger">
+                URL invalide.
+            </div>
+        </div>
+    </div>
+
+    <!-- Status -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Statut:</label>
+        <div class="col-sm-9">
+            <select class="form-select" formControlName="status">
+                <option value="Disponible">Disponible</option>
+                <option value="En Construction">En Construction</option>
+                <option value="Vendu">Vendu</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Appartements -->
+    <h3 class="mt-4">Appartements</h3>
+
+    <div formArrayName="apartments">
+        <div *ngFor="let apt of apartments.controls; let i = index" [formGroupName]="i" class="border p-3 mb-3">
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">N° Appartement:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="apartNum">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">floorNum:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="floorNum">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Surface:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="surface">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Terrasse:</label>
+                <div class="col-sm-9">
+                    <input type="checkbox" formControlName="terrace"> Oui
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Surface Terrasse:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="surfaceterrace"
+                        [disabled]="!apt.get('terrace')?.value">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Catégorie:</label>
+                <div class="col-sm-9">
+                    <select class="form-select" formControlName="category">
+                        <option value="s+1">S+1</option>
+                        <option value="s+2">S+2</option>
+                        <option value="s+3">S+3</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">ID Résidence:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="ResidenceId">
+                </div>
+            </div>
+
+            <!-- Bouton de suppression -->
+            <div class="text-end">
+                <button type="button" class="btn btn-danger btn-sm" (click)="removeApartment(i)">Supprimer
+                    Appartement</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bouton Ajouter Appartement -->
+    <div class="mb-3">
+        <button type="button" class="btn btn-success" (click)="addApartment()">Ajouter un Appartement</button>
+    </div>
+
+    <!-- Bouton de Soumission -->
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary" [disabled]="residenceForm.invalid">Ajouter Résidence</button>
+    </div>
 </form>

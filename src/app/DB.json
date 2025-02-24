@@ -1,0 +1,32 @@
+{
+    "residences": [
+        {
+            "id": 1,
+            "name": "Residence 1",
+            "address": "123 Main St",
+            "status": "Disponible"
+        },
+        {
+            "id": 2,
+            "name": "Residence 2",
+            "address": "456 Main St",
+            "status": "En Construction"
+        }
+    ],
+    "apartments": [
+        {
+            "id": 1,
+            "name": "Apartamento 1",
+            "residenceId": 1,
+            "surface": 80,
+            "category": "S+1"
+        },
+        {
+            "id": 2,
+            "name": "Residence 1",
+            "residenceId": 2,
+            "surface": 90,
+            "category": "S+2"
+        }
+    ]
+}

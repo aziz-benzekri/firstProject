@@ -6,4 +6,9 @@
     <button [routerLink]="['/residences/add']" class="btn btn-success">Add Residence</button>
     <button [routerLink]="['/residences', numResidence, 'edit']" class="btn btn-warning">Update Residence</button>
 
+    <form (ngSubmit)="updateResidence()">
+        <input type="text" [(ngModel)]="residence.name" name="name" />
+        <button type="submit">Save</button>
+    </form>
+
 </div>

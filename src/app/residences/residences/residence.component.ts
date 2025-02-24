@@ -27,6 +27,17 @@ export class ResidencesComponent {
 
   ngOnInit(): void {
     this.matchingResidencesCount = this.commonService.getSameValueOf(this.listResidences, 'address', 'Borj Cedria');
+
+    this.residenceService.getResidences().subscribe(data => {
+      this.listResidences = data;
+    });
+  }
+
+  // bech tfaskh res
+  deleteResidence(id: number): void {
+    this.residenceService.deleteResidence(id).subscribe(() => {
+      this.listResidences = this.listResidences.filter(residence => residence.id !== id);
+    });
   }
 
 

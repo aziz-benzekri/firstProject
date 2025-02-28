@@ -1,52 +1,55 @@
 <form [formGroup]="apartForm" (ngSubmit)="onSubmit()" class="container mt-4 p-4 border rounded bg-light">
 
-
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Apartment Number:</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control" formControlName="apartmentNumber">
-            <div class="text-danger"
-                *ngIf="apartForm.get('apartmentNumber')?.invalid && apartForm.get('apartmentNumber')?.touched">
+            <input type="text" class="form-control" formControlName="apartNum">
+            <div class="text-danger" *ngIf="apartForm.get('apartNum')?.invalid && apartForm.get('apartNum')?.touched">
                 Numéro d'appartement invalide (chiffres uniquement).
             </div>
         </div>
     </div>
 
-
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Floor Number:</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control" formControlName="floorNumber">
-            <div class="text-danger"
-                *ngIf="apartForm.get('floorNumber')?.invalid && apartForm.get('floorNumber')?.touched">
+            <input type="text" class="form-control" formControlName="floorNum">
+            <div class="text-danger" *ngIf="apartForm.get('floorNum')?.invalid && apartForm.get('floorNum')?.touched">
                 Numéro d'étage invalide (chiffres uniquement).
             </div>
         </div>
     </div>
 
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Surface:</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" formControlName="surface">
+            <div class="text-danger" *ngIf="apartForm.get('surface')?.invalid && apartForm.get('surface')?.touched">
+                Surface invalide (chiffres uniquement).
+            </div>
+        </div>
+    </div>
 
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Terrace:</label>
         <div class="col-sm-9">
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" formControlName="terrace" value="true" id="terraceYes">
+                <input class="form-check-input" type="radio" formControlName="terrace" [value]="true" id="terraceYes">
                 <label class="form-check-label" for="terraceYes">Yes</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" formControlName="terrace" value="false" id="terraceNo">
+                <input class="form-check-input" type="radio" formControlName="terrace" [value]="false" id="terraceNo">
                 <label class="form-check-label" for="terraceNo">No</label>
             </div>
         </div>
     </div>
 
-
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Surface Terrace:</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control" formControlName="surfaceTerrace">
+            <input type="text" class="form-control" formControlName="surfaceterrace">
         </div>
     </div>
-
 
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Category:</label>
@@ -69,17 +72,18 @@
         </div>
     </div>
 
-
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Residence:</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control" formControlName="residence">
-            <div class="text-danger" *ngIf="apartForm.get('residence')?.invalid && apartForm.get('residence')?.touched">
+            <select class="form-control" formControlName="ResidenceId">
+                <option *ngFor="let residence of residences" [value]="residence.id">{{ residence.name }}</option>
+            </select>
+            <div class="text-danger"
+                *ngIf="apartForm.get('ResidenceId')?.invalid && apartForm.get('ResidenceId')?.touched">
                 Résidence obligatoire.
             </div>
         </div>
     </div>
-
 
     <div class="mb-3 row">
         <div class="col-sm-9 offset-sm-3">

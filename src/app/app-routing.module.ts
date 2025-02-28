@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ResidencesComponent } from './residences/residences/residence.component';
 
-
+import { HttpClientModule } from '@angular/common/http';
 
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
@@ -17,6 +17,8 @@ import { AddApartmentComponent } from './apartments/add-apartment/add-apartment.
 import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
+  { path: 'residences/:id/add-apartment', component: AddApartmentComponent },
+
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'residences', component: ResidencesComponent },
@@ -31,7 +33,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), HttpClientModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

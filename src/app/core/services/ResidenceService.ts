@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { Apartment } from '../models/Apartment.model';
 @Injectable({
     providedIn: 'root'
 })
@@ -30,4 +30,23 @@ export class ResidenceService {
     updateResidence(id: number, residence: any): Observable<any> {
         return this.http.put(`${this.residenceUrl}/${id}`, residence);
     }
+    addApartmentToResidence(residenceId: number, apartment: Apartment): Observable<any> {
+        return this.http.post<any>(`${this.residenceUrl}/${residenceId}/apartments`, apartment);
+    }
+    updateResidenceWithApartment(residenceId: number, updatedResidence: any) {
+        return this.http.patch(`http://localhost:3000/residences/${residenceId}`, {
+            apartments: updatedResidence.apartments  // Mettre à jour le tableau des appartements directement
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

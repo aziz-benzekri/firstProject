@@ -33,8 +33,11 @@
                 </td>
                 <button [routerLink]="['/residences', residence.id, 'apartments']">Appartements List</button>
                 <div *ngFor="let residence of listResidences">
-                    <p>{{ residence.name }}</p>
-                    <button (click)="deleteResidence(residence.id)">Supprimer</button>
+
+
+                    <!--<button (click)="deleteResidence(residence.id)">Supprimer</button> -->
+                    <button (click)="onDeleteResidence(residence.id)">Supprimer</button>
+
                 </div>
 
             </tr>

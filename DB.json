@@ -1,54 +1,65 @@
 {
-    "residences": [
+  "residences": [
+    {
+      "id": "1",
+      "name": "el yassmin",
+      "address": "el omrane",
+      "image": "https://static.locasun.com/locasun/img/residence/603gh.jpg",
+      "status": "Disponible",
+      "apartments": [
         {
-            "id": 1,
-            "name": "El Fel",
-            "address": "Borj Cedria",
-            "image": "assets/images/R1.jpeg",
-            "status": "Disponible"
+          "apartNum": "2",
+          "floorNum": "4",
+          "surface": "4",
+          "terrace": false,
+          "category": "s+2",
+          "ResidenceId": "1"
         },
         {
-            "id": 2,
-            "name": "El Yasmine",
-            "address": "Ezzahra",
-            "image": "assets/images/R2.jpg",
-            "status": "Disponible"
-        },
-        {
-            "id": 3,
-            "name": "El Arij",
-            "address": "Rades",
-            "image": "assets/images/R3.jpg",
-            "status": "Vendu"
-        },
-        {
-            "id": 4,
-            "name": "El Anber",
-            "address": "inconnu",
-            "image": "assets/images/R4.jpg",
-            "status": "En Construction"
+          "apartNum": "3",
+          "floorNum": "5",
+          "surface": "4",
+          "terrace": false,
+          "category": "s+2",
+          "ResidenceId": "1"
         }
-    ],
-    "apartments": [
+      ]
+    },
+    {
+      "id": "",
+      "name": "el ward",
+      "address": "menzah 9",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSErtUF682tBHIWOJTTxA6VT8AlQ11qTqbizg&s",
+      "status": "En Construction",
+      "apartments": [
         {
-            "id": 1,
-            "apartmentNumber": "A101",
-            "floorNumber": 1,
-            "surface": 80,
-            "terrace": true,
-            "surfaceTerrace": 20,
-            "category": "T2",
-            "residenceId": 1
-        },
-        {
-            "id": 2,
-            "apartmentNumber": "B201",
-            "floorNumber": 2,
-            "surface": 120,
-            "terrace": false,
-            "surfaceTerrace": 0,
-            "category": "T3",
-            "residenceId": 2
+          "apartNum": "1",
+          "floorNum": "1",
+          "surface": "200",
+          "terrace": true,
+          "surfaceterrace": "25",
+          "category": "s+2",
+          "ResidenceId": "2"
         }
-    ]
+      ]
+    },
+    {
+      "id": "",
+      "name": "enawaar",
+      "address": "carthage",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxQnDOLXmYaJbE8MXje6C81FHB7pFUs0yahA&s",
+      "status": "Disponible",
+      "apartments": [
+        {
+          "apartNum": "1",
+          "floorNum": "1",
+          "surface": "300",
+          "terrace": true,
+          "surfaceterrace": "20",
+          "category": "s+2",
+          "ResidenceId": "3"
+        }
+      ]
+    }
+  ]
 }

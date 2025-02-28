@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Residence } from '../../core/models/residence.model';
 import { CommonService } from '../../core/services/commonService';
 import { ResidenceService } from '../../core/services/ResidenceService';
+import { Apartment } from '../../core/models/Apartment.model';
 
 @Component({
   selector: 'app-residence',
@@ -14,10 +15,10 @@ export class ResidencesComponent {
 
 
   listResidences: Residence[] = [
-    { id: 1, name: 'El Fel', address: 'Borj Cedria', image: '../../assets/images/R1.jpeg', status: 'Disponible' },
-    { id: 2, name: 'El Yasmine', address: 'Ezzahra', image: '../../assets/images/R2.jpg', status: 'Disponible' },
-    { id: 3, name: 'El Arij', address: 'Rades', image: '../../assets/images/R3.jpg', status: 'Vendu' },
-    { id: 4, name: 'El Anber', address: 'inconnu', image: '../../assets/images/R4.jpg', status: 'En Construction' }
+    { id: 5, name: 'El Fel', address: 'Borj Cedria', image: '../../assets/images/R1.jpeg', status: 'Disponible' },
+    { id: 6, name: 'El Yasmine', address: 'Ezzahra', image: '../../assets/images/R2.jpg', status: 'Disponible' },
+    { id: 7, name: 'El Arij', address: 'Rades', image: '../../assets/images/R3.jpg', status: 'Vendu' },
+    { id: 8, name: 'El Anber', address: 'inconnu', image: '../../assets/images/R4.jpg', status: 'En Construction' }
   ];
   /**
    * 
@@ -67,4 +68,34 @@ export class ResidencesComponent {
       residence.address.toLowerCase().includes(this.address.toLowerCase())
     );
   }
+
+  addApartmentToResidence(residenceId: string, apartment: Apartment): void {
+    const residence = this.listResidences.find(r => r.id === parseInt(residenceId, 10));
+    if (residence) {
+      if (!residence.apartments) {
+        residence.apartments = [];  // Initialiser si undefined
+      }
+      residence.apartments.push(apartment);  // Ajouter l'appartement
+      console.log(`Appartement ajouté à la résidence ${residence.name}`);
+    } else {
+      console.error("Résidence non trouvée !");
+    }
+  }
+  onDeleteResidence(id: number) {
+    this.residenceService.deleteResidence(id).subscribe({
+      next: () => {
+        console.log(`Résidence ${id} supprimée avec succès.`);
+        this.residenceService.getResidences().subscribe(data => {
+          this.listResidences = data;
+        });
+        // Recharge la liste après suppression
+      },
+      error: (err) => console.error('Erreur lors de la suppression:', err)
+    });
+  }
+
 }
+
+
+
+

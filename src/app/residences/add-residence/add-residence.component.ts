@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { ResidenceService } from 'src/app/core/services/ResidenceService';
 
 @Component({
   selector: 'app-add-residence',
@@ -9,25 +10,23 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 export class AddResidenceComponent implements OnInit {
   residenceForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private residenceService: ResidenceService) {
     this.residenceForm = this.fb.group({
-      id: [''],  // Champ caché
+      id: [''],
       name: ['', [Validators.required, Validators.minLength(3)]],
       address: ['', Validators.required],
-      image: ['', [Validators.required, Validators.pattern('https?://.+')]], // Validation d'URL
+      image: ['', [Validators.required, Validators.pattern('https?://.+')]],
       status: ['Disponible', Validators.required],
-      apartments: this.fb.array([])  // FormArray pour gérer les appartements
+      apartments: this.fb.array([])
     });
   }
 
   ngOnInit(): void { }
 
-  // Accéder à la liste des appartements
   get apartments() {
     return this.residenceForm.get('apartments') as FormArray;
   }
 
-  // Ajouter un appartement au formulaire
   addApartment() {
     const apartmentForm = this.fb.group({
       apartNum: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
@@ -36,31 +35,34 @@ export class AddResidenceComponent implements OnInit {
       terrace: [false],
       surfaceterrace: [{ value: '', disabled: true }, [Validators.pattern('^[0-9]*$')]],
       category: ['s+1', Validators.required],
-      ResidenceId: ['', Validators.required] // Assigner l'ID de la résidence
+      ResidenceId: ['', Validators.required]
     });
 
-    // Activer/désactiver le champ surfaceterrace en fonction de la valeur de terrace
     apartmentForm.get('terrace')?.valueChanges.subscribe(value => {
       const surfaceTerraceControl = apartmentForm.get('surfaceterrace');
-      if (value) {
-        surfaceTerraceControl?.enable();
-      } else {
-        surfaceTerraceControl?.disable();
-      }
+      value ? surfaceTerraceControl?.enable() : surfaceTerraceControl?.disable();
     });
 
     this.apartments.push(apartmentForm);
   }
 
-  // Supprimer un appartement de la liste
   removeApartment(index: number) {
     this.apartments.removeAt(index);
   }
 
-  // Soumettre le formulaire
   onSubmit() {
     if (this.residenceForm.valid) {
-      console.log('Résidence:', this.residenceForm.value);
+      this.residenceService.addResidence(this.residenceForm.value).subscribe(
+        response => {
+          console.log('Résidence ajoutée avec succès', response);
+          alert('Résidence ajoutée !');
+          this.residenceForm.reset();  // Réinitialiser le formulaire après l'ajout
+        },
+        error => {
+          console.error('Erreur lors de l’ajout de la résidence', error);
+          alert('Échec de l’ajout de la résidence');
+        }
+      );
     }
   }
 }

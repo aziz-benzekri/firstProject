@@ -1,1 +1,30 @@
-<p>apartments-by-residence works!</p>
+<div class="container mt-4">
+    <h2 class="text-center">Appartements par Résidence</h2>
+
+    <!-- Sélection de résidence -->
+    <div class="mb-3">
+        <label for="residenceSelect" class="form-label">Sélectionner une résidence :</label>
+        <select id="residenceSelect" class="form-select" (change)="onResidenceSelect($event)">
+            <option *ngFor="let residence of residences; let i = index" [value]="i">
+                {{ residence.name }}
+            </option>
+        </select>
+    </div>
+
+    <!-- Liste des appartements -->
+    <div *ngIf="selectedResidence">
+        <h3 class="mt-4">{{ selectedResidence.name }}</h3>
+        <p><strong>Adresse :</strong> {{ selectedResidence.address }}</p>
+
+        <h4 class="mt-3">Appartements :</h4>
+        <ul class="list-group">
+            <li *ngFor="let apartment of apartments" class="list-group-item">
+                <strong>Appartement N°:</strong> {{ apartment.apartNum }},
+                <strong>Étage:</strong> {{ apartment.floorNum }},
+                <strong>Surface:</strong> {{ apartment.surface }} m²,
+                <strong>Terrasse:</strong> {{ apartment.terrace ? 'Oui' : 'Non' }},
+                <strong>Catégorie:</strong> {{ apartment.category }}
+            </li>
+        </ul>
+    </div>
+</div>
